@@ -1,5 +1,5 @@
 const parkingSlot =require("../models/parkingSlotModel.js")
-const parking =require("../models/parkingModel")
+const parking =require("../models/parkingModel.js")
 
 const createParkingSlot = async (req, res) => {
     const parkingId = req.params.parkingid;
@@ -9,14 +9,15 @@ const createParkingSlot = async (req, res) => {
       const savedParkingSlot = await newParkingSlot.save();
       try {
         await parking.findByIdAndUpdate(parkingId, {
-          $push: { parkingSlot: savedParkingSlot._id },
+          $push: { slots: savedParkingSlot._id },
+         
         });
       } catch (err) {
-        next(err);
+        res.status(500).json(err);
       }
       res.status(200).json(savedParkingSlot);
     } catch (err) {
-      next(err);
+      res.status(500).json(err);
     }
   };
 
@@ -36,7 +37,7 @@ const createParkingSlot = async (req, res) => {
 
 
     } catch (error) {
-        res.status(500).json(err);
+        res.status(500).json(error);
     }
   }
 
@@ -44,17 +45,34 @@ const createParkingSlot = async (req, res) => {
   const deleteParkingSlot =async(req,res)=>{
     const parkingId = req.params.parkingid;
     try {
-      await Room.findByIdAndDelete(req.params.id);
+      await parkingSlot.findByIdAndDelete(req.params.id);
       try {
-        await parking.findByIdAndUpdate(hotelId, {
-          $pull: { parkingSlot: req.params.id },
+        await parking.findByIdAndUpdate(parkingId, {
+          $pull: { slots: req.params.id },
+         
         });
-    } catch (err) {
-        next(err);
+    } catch (error) {
+      res.status(500).json(error);
       }
       res.status(200).json("Parking Slot  has been deleted.");
     } catch (err) {
         res.status(200).json("Parking Slot  has been deleted.");
+    }
+  };
+
+  const updateParkingSlotAvailability = async (req, res) => {
+    try {
+      await parkingSlot.updateOne(
+        { "slotNumbers._id": req.params.id },
+        {
+          $push: {
+            "slotNumbers.$.unavailableDates": req.body.dates
+          },
+        }
+      );
+      res.status(200).json("Room status has been updated.");
+    } catch (error) {
+      res.status(200).json("Room status has been updated.");
     }
   };
 
@@ -64,7 +82,7 @@ const createParkingSlot = async (req, res) => {
       const singleParkingSlot =await parkingSlot.findById(req.params.id)
       res.status(200).json({ message: "Your Single  Parking Slot has successfully Find",  parkingSlot: singleParkingSlot})
     } catch (error) {
-      res.status(500).json(err);
+      res.status(500).json(error);
     }
   }
 
@@ -73,9 +91,11 @@ const createParkingSlot = async (req, res) => {
        const allParkingsSlot =await parkingSlot.find()
        res.status(200).json(allParkingsSlot)
     } catch (error) {
-      
+      res.status(500).json(error);
     }
   }
+
+  
 
 
   module.exports={
@@ -83,5 +103,7 @@ const createParkingSlot = async (req, res) => {
     updateParkingSlot,
     deleteParkingSlot,
     singleParkingSlot,
-    allParkingsSlot
+    allParkingsSlot,
+    updateParkingSlotAvailability,
+ 
   }

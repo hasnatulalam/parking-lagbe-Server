@@ -7,20 +7,17 @@ const OrderSchema =new mongoose.Schema({
 
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "user",
     required: true,
   },
-   parkingId:{
+   parkingSlotId:{
     
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Parking",
+    ref: "parkingSlot",
     required: true,
     },
    
-   amount:{
-     type:Number,
-     required:true,
-   },
+
    address:{
     type:Object,
     required:true
@@ -37,5 +34,5 @@ const OrderSchema =new mongoose.Schema({
 
 },{timestamps:true});
 
-const oderModel =mongoose.model("order",OrderSchema);
-module.exports = orderModel
+const oderModel =mongoose.model("Order",OrderSchema);
+module.exports = oderModel

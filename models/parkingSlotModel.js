@@ -11,10 +11,11 @@ const parkingSlotSchema = new mongoose.Schema(
       },
     
     
-      parkingSlotNumbers: [{ number: Number, unavailableDates: {type: [Date]}}],
+      slotNumbers: [{ number: Number, unavailableDates: {type: [Date]}}],
     },
     { timestamps: true }
   );
 
   const parkingSlotModel =mongoose.model("parkingSlot",parkingSlotSchema)
   module.exports =parkingSlotModel
+  

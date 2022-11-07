@@ -36,7 +36,7 @@ const parkingSchema = new mongoose.Schema({
     min: 0,
     max: 5,
   },
-  parkingSlot: {
+  slots: {
     type: [String],
   },
  
