@@ -9,7 +9,7 @@ const { checkIsUserAuthenticated, verifyTokenAndAdmin } = require("../middleware
 
 const router = express.Router();
 
-router.post("/addoder",checkIsUserAuthenticated, addOder)
+router.post("/addoder", addOder)
 
 
 module.exports =router

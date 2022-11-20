@@ -8,7 +8,7 @@ const router = express.Router();
 //only every user send email
 router.post("/contact",Contact)
 
-router.post("/users/register", userRegistration);
+router.post("/users/register",  userRegistration);
 router.post("/users/login", userLogin);
 router.get("/users/logout",userLogout)
 

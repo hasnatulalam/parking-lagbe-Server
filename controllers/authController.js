@@ -41,7 +41,7 @@ const EmailSender =require("../config/contactEmailTemplete.js")
           if (resUser) {
             return res
               .status(201)
-              .json({ message: "Registered Successfully", user: resUser });
+              .json({ message: "A Link Sent Your Email address Pls verify your email", user: resUser });
           }
         }
       } else {
@@ -77,14 +77,19 @@ const EmailSender =require("../config/contactEmailTemplete.js")
               return res.status(200).json({
                 message: "Login Successfully",
                 token,
+             
                 isUser,
                 name: isUser.name,
-                email:isUser.email
+                email:isUser.email,
+                isAdmin:isUser.isAdmin
+
               });
-            } else {
+             
+            } 
+              else {
               return res.status(400).json({ message: "Invalid Credentials!" });
             }
-          } else {
+          }  else {
             return res
               .status(400)
               .json({ message: "Email Verification Pending" });
@@ -99,6 +104,8 @@ const EmailSender =require("../config/contactEmailTemplete.js")
       return res.status(400).json({ message: error.message });
     }
   };
+
+
     const  userLogout =async(req,res)=>{
     res.cookie("token","",{
    
@@ -389,6 +396,8 @@ const EmailSender =require("../config/contactEmailTemplete.js")
     }
   };
 
+ 
+
 
  const Contact =async(req,res)=>{
   try {
@@ -399,6 +408,11 @@ const EmailSender =require("../config/contactEmailTemplete.js")
     res.status(404).json({ msg: "Error ❌" });
   }
  }
+
+
+
+
+
 
  
 

@@ -1,6 +1,13 @@
 const parkingSlot =require("../models/parkingSlotModel.js")
 const parking =require("../models/parkingModel.js")
 
+
+
+
+
+// const stripe = require("stripe")(process.env.STRIPE_KEY);
+
+
 const createParkingSlot = async (req, res) => {
     const parkingId = req.params.parkingid;
     const newParkingSlot = new parkingSlot(req.body);
@@ -95,6 +102,19 @@ const createParkingSlot = async (req, res) => {
     }
   }
 
+  const deleteParkingSlots = async (req, res) => {
+    try {
+      const user = await parkingSlot.findById(req.params.id);
+      
+      res.status(200).json("User Has been deleted Successfully");
+    } catch (err) {
+      res.status(500).json(err);
+    }
+    };
+
+
+   
+
   
 
 
@@ -104,6 +124,7 @@ const createParkingSlot = async (req, res) => {
     deleteParkingSlot,
     singleParkingSlot,
     allParkingsSlot,
+    deleteParkingSlots,
     updateParkingSlotAvailability,
  
   }

@@ -19,7 +19,7 @@ const getUser = async (req, res) => {
     try {
       const user = await authModel.findById(req.params.id);
       
-      res.status(200).json("User Has been deleted Successfully");
+      res.status(200).json(user);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -65,9 +65,23 @@ const userStats= async (req, res) => {
   }
 };
 
+const updateUser = async (req,res)=>{
+  try {
+    const updatedUser = await authModel.findByIdAndUpdate(
+      req.params.email,
+      { $set: req.body },
+      { new: true }
+    );
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
+
   module.exports={
     getUser,
     getAllUsers,
     userStats,
     deleteUser,
+    updateUser,
   }

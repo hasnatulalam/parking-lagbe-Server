@@ -83,7 +83,7 @@ const updateParking= async (req, res) => {
     try {
       const parkings = await parking.find({
         ...others,
-        cheapestPrice: { $gt: min | 100, $lt: max || 3000 },
+        cheapestPrice: { $gt: min | 10, $lt: max || 3000 },
       }).limit(req.query.limit);
       res.status(200).json(parkings);
     } catch (err) {
@@ -104,6 +104,16 @@ const updateParking= async (req, res) => {
       res.status(500).json(error);
     }
   };
+
+  const searchByCity= async (req,res) => {
+    try {
+        const findname = req.params.name;
+        const objs = await parking.find({productName:{ $regex:'.*'+findname+'.*'} });
+        res.json(objs);
+    } catch (error) {
+        res.json({message: error});        
+    }
+}
 
   const countByType = async (req, res) => {
     try {
@@ -137,6 +147,18 @@ const updateParking= async (req, res) => {
     }
   };
 
+  const getAllParkings= async (req, res) => {
+    const query = req.query.new;
+    try {
+      const parkings = query
+        ? await parking.find().sort({ _id: -1 }).limit(5)
+        : await parking.find();
+      res.status(200).json(parkings);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  };
+
 module.exports ={
     parkingAdd,
     updateParking,
@@ -146,5 +168,7 @@ module.exports ={
     countByCity,
     countByType,
     getParkingSlot,
+    searchByCity,
+    getAllParkings,
    
 }

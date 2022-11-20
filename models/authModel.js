@@ -13,6 +13,9 @@ const authSchema = new mongoose.Schema({
   message:{
     type: String,
   },
+  rating:{
+    type: Number,
+  },
   isVerified: {
     type: Boolean,
   },

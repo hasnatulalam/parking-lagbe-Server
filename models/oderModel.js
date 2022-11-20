@@ -10,7 +10,7 @@ const OrderSchema =new mongoose.Schema({
     ref: "user",
     required: true,
   },
-   parkingSlotId:{
+  slotNumbersId:{
     
     type: mongoose.Schema.Types.ObjectId,
     ref: "parkingSlot",
