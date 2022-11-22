@@ -1,5 +1,6 @@
 const parkingSlot =require("../models/parkingSlotModel.js")
 const parking =require("../models/parkingModel.js")
+const user =require("../models/authModel.js")
 
 
 
@@ -111,6 +112,16 @@ const createParkingSlot = async (req, res) => {
       res.status(500).json(err);
     }
     };
+
+     const myBookingSlots =async(req,res)=>{
+      try {
+        const myBooking = await parkingSlot.find({ userId: req.params.userId });
+        res.status(200).json(myBooking);
+      } catch (error) {
+        res.status(500).json(error);
+      }
+
+    } 
 
 
    

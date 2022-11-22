@@ -7,7 +7,7 @@ const router = express.Router();
 
 //only every user send email
 router.post("/addreview",reviewAdd)
-router.get("/collectreview",getAllReview)
+router.get("/collectreviews",getAllReview)
 
 
 module.exports =router

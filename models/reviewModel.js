@@ -5,6 +5,12 @@ const reviewSchema = new mongoose.Schema({
   rating:{
     type: Number,
   },
+  price:{
+    type: Number,
+  },
+  name:{
+    type: String,
+  }
  
  
 });

@@ -65,14 +65,16 @@ const userStats= async (req, res) => {
   }
 };
 
-const updateUser = async (req,res)=>{
+const MakeAdmin = async (req,res)=>{
   try {
-    const updatedUser = await authModel.findByIdAndUpdate(
-      req.params.email,
-      { $set: req.body },
-      { new: true }
+    const  MakeAdmin = await authModel.findByIdAndUpdate(
+      req.params.id,
+      { $set: {
+       isAdmin:"true",
+      } },
+      { upsert: true }
     );
-    res.status(200).json(updatedUser);
+    res.status(200).json(MakeAdmin);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -83,5 +85,5 @@ const updateUser = async (req,res)=>{
     getAllUsers,
     userStats,
     deleteUser,
-    updateUser,
+    MakeAdmin,
   }
