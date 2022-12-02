@@ -19,6 +19,9 @@ const authSchema = new mongoose.Schema({
   isVerified: {
     type: Boolean,
   },
+  role:{
+    type: String,
+  },
   isAdmin:{
     type:Boolean,
     default:false,

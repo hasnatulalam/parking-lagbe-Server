@@ -1,5 +1,6 @@
 const mongoose =require("mongoose");
 const parkingSlotSchema = new mongoose.Schema(
+ 
 
     {
       title: {
@@ -14,7 +15,9 @@ const parkingSlotSchema = new mongoose.Schema(
     
     
       slotNumbers: [{ number: Number, unavailableDates: {type: [Date]}}],
+    
     },
+    
     { timestamps: true }
   );
 

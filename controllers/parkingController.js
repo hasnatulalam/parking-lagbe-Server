@@ -21,16 +21,14 @@ const parkingAdd= async (req,res)=>{
     try {
  
         const saveParking = await newParking.save()
-        if ( saveParking) {
-           return res
-            .status(200)
-            .json(saveParking);
-            //console.log(saveParking);
-        }
+        
+           
+        res.status(200).json(saveParking);
+           
+          
+     
       
-     else {
-      return res.status(400).json(saveParking);
-    }
+   
   
         
     } catch (error) {

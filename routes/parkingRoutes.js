@@ -10,7 +10,7 @@ const { checkIsUserAuthenticated, verifyTokenAndAdmin } = require("../middleware
 
 const router = express.Router();
 
-router.post("/addparking",verifyTokenAndAdmin, parkingAdd)
+router.post("/addparking", parkingAdd)
 router.put("/update/:id",  updateParking)
 router.delete("/delete/:id",deleteParking)
 router.get("/singleParking/:id", singleParking)

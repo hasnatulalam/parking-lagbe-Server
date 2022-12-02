@@ -6,6 +6,7 @@ const parkingRoutes =require("./routes/parkingRoutes");
 const parkingSlotRoutes= require("./routes/parkingSlotRoutes")
 const oderRoutes = require("./routes/oderRoutes")
 const reviewRoutes =require("./routes/reviewRoutes")
+const paymentRoutes = require("./routes/paymentRoutes")
 
  const dotenv =require("dotenv");
  const cors =require("cors")
@@ -33,6 +34,7 @@ app.use("/api/parking",parkingRoutes)
 app.use("/api/parkingSlot",parkingSlotRoutes)
 app.use("/api/oder",oderRoutes)
 app.use("/api/review",reviewRoutes)
+app.use("/api/payment", paymentRoutes)
 
 
 app.listen(PORT, () => {

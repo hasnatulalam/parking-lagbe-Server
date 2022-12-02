@@ -84,7 +84,6 @@ const createParkingSlot = async (req, res) => {
     }
   };
 
-
   const singleParkingSlot =async(req,res)=>{
     try {
       const singleParkingSlot =await parkingSlot.findById(req.params.id)
