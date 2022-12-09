@@ -72,7 +72,7 @@ const EmailSender =require("../config/contactEmailTemplete.js")
                 { userID: isUser._id },
                 "pleaseSubscribe",
                 {
-                  expiresIn: "2d",
+                  expiresIn: "10m",
                 }
               );
               return res.status(200).json({
