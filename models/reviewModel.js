@@ -5,10 +5,10 @@ const reviewSchema = new mongoose.Schema({
   rating:{
     type: Number,
   },
-  price:{
-    type: Number,
+  description:{
+    type: String,
   },
-  name:{
+  email:{
     type: String,
   }
  

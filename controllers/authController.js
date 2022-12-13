@@ -7,9 +7,9 @@ const EmailSender =require("../config/contactEmailTemplete.js")
 
 
   const  userRegistration = async (req, res) => {
-    const { name, email, password,role } = req.body;
+    const { name, email, password } = req.body;
     try {
-      if (name && email && password && role) {
+      if (name && email && password) {
         const isUser = await authModel.findOne({ email: email, });
         if (isUser) {
           return res.status(400).json({ message: "user Already Exists" });
@@ -33,7 +33,6 @@ const EmailSender =require("../config/contactEmailTemplete.js")
           const newUser = authModel({
             name,
             email,
-            role,
             password: hashedPassword,
             isVerified: false,
           });
@@ -72,7 +71,7 @@ const EmailSender =require("../config/contactEmailTemplete.js")
                 { userID: isUser._id },
                 "pleaseSubscribe",
                 {
-                  expiresIn: "10m",
+                  expiresIn: "2d",
                 }
               );
               return res.status(200).json({
@@ -82,7 +81,6 @@ const EmailSender =require("../config/contactEmailTemplete.js")
                 isUser,
                 name: isUser.name,
                 email:isUser.email,
-                role:isUser.role,
                 isAdmin:isUser.isAdmin
 
               });

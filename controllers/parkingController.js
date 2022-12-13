@@ -59,8 +59,8 @@ const updateParking = async (req, res) => {
 
 const deleteParking = async (req, res) => {
   try {
-    await parking.findById(req.params.id)
-    res.status(200).json("Delete Your Parking Address")
+   const deleteParking= await parking.findByIdAndDelete(req.params.id)
+    res.status(200).json(deleteParking)
   } catch (error) {
     res.status(500).json(error)
   }

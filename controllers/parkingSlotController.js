@@ -84,6 +84,7 @@ const createParkingSlot = async (req, res) => {
     }
   };
 
+
   const singleParkingSlot =async(req,res)=>{
     try {
       const singleParkingSlot =await parkingSlot.findById(req.params.id)
@@ -104,9 +105,9 @@ const createParkingSlot = async (req, res) => {
 
   const deleteParkingSlots = async (req, res) => {
     try {
-      const user = await parkingSlot.findById(req.params.id);
+      const deleteParkingSlots = await parkingSlot.findByIdAndDelete(req.params.id);
       
-      res.status(200).json("User Has been deleted Successfully");
+      res.status(200).json(deleteParkingSlots);
     } catch (err) {
       res.status(500).json(err);
     }

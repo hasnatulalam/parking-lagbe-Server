@@ -9,7 +9,18 @@ const paymentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    timestamp: {
+    slots: [
+        { type: Number, required: true }
+    ],
+    bookingDate: {
+        type: Object,
+        required: true
+    },
+    bookingLocation: {
+        type: String,
+        required: true
+    },
+    paymentTimeStamp: {
         type: Date,
         default: Date.now()
     },

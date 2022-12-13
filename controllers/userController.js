@@ -17,9 +17,9 @@ const getUser = async (req, res) => {
   //Delete Specific User
   const deleteUser = async (req, res) => {
     try {
-      const user = await authModel.findById(req.params.id);
+      const deleteUser = await authModel.findByIdAndDelete(req.params.id);
       
-      res.status(200).json(user);
+      res.status(200).json(deleteUser);
     } catch (err) {
       res.status(500).json(err);
     }
