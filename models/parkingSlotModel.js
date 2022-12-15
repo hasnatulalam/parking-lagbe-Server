@@ -10,12 +10,15 @@ const parkingSlotSchema = new mongoose.Schema(
         type: Number,
         required: true,
       },
+     
   
     
     
       slotNumbers: [{ number: Number, unavailableDates: {type: [Date]}}],
     },
+   
     { timestamps: true }
+   
   );
 
   const parkingSlotModel =mongoose.model("parkingSlot",parkingSlotSchema)

@@ -48,6 +48,7 @@ const parkingSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+
 });
 
 const parkingModel= mongoose.model("parking", parkingSchema)

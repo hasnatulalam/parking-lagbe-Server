@@ -12,12 +12,10 @@ const { createParkingSlot, updateParkingSlot, deleteParkingSlot, singleParkingSl
 
 const router = express.Router()
 
-router.post("/createParkingSlot/:parkingid", verifyTokenAndAdmin, createParkingSlot)
-router.put("/updateParkingSlot/:id", verifyTokenAndAdmin, updateParkingSlot)
-router.delete("/deleteParkingSlot/:id/:parkingId", verifyTokenAndAdmin, deleteParkingSlot)
+router.post("/createParkingSlot/:parkingid",  createParkingSlot)
+router.put("/updateParkingSlot/:id",  updateParkingSlot)
 router.delete("/deleteParkingSlots/:id/", deleteParkingSlots)
-router.get("/singleParkingSlot/:id", verifyTokenAndAdmin, singleParkingSlot)
+router.get("/singleParkingSlot/:id",  singleParkingSlot)
 router.put("/availability/:id", updateParkingSlotAvailability)
 router.get("/allParkingSlot", allParkingsSlot)
-
 module.exports = router

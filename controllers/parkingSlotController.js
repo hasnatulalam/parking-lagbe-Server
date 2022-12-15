@@ -10,24 +10,24 @@ const user =require("../models/authModel.js")
 
 
 const createParkingSlot = async (req, res) => {
-    const parkingId = req.params.parkingid;
-    const newParkingSlot = new parkingSlot(req.body);
-  
+  const parkingId = req.params.parkingid;
+  const newParkingSlot = new parkingSlot(req.body);
+
+  try {
+    const savedParkingSlot = await newParkingSlot.save();
     try {
-      const savedParkingSlot = await newParkingSlot.save();
-      try {
-        await parking.findByIdAndUpdate(parkingId, {
-          $push: { slots: savedParkingSlot._id },
-         
-        });
-      } catch (err) {
-        res.status(500).json(err);
-      }
-      res.status(200).json(savedParkingSlot);
+      await parking.findByIdAndUpdate(parkingId, {
+        $push: { slots: savedParkingSlot._id },
+       
+      });
     } catch (err) {
       res.status(500).json(err);
     }
-  };
+    res.status(200).json(savedParkingSlot);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
 
   const updateParkingSlot = async(req,res)=>{
     try {
