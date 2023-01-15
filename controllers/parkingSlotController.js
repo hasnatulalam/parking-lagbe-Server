@@ -20,12 +20,12 @@ const createParkingSlot = async (req, res) => {
         $push: { slots: savedParkingSlot._id },
        
       });
-    } catch (err) {
-      res.status(500).json(err);
+    } catch (error) {
+      res.status(500).json(error);
     }
     res.status(200).json(savedParkingSlot);
-  } catch (err) {
-    res.status(500).json(err);
+  } catch (error) {
+    res.status(500).json(error);
   }
 };
 
@@ -63,7 +63,7 @@ const createParkingSlot = async (req, res) => {
       res.status(500).json(error);
       }
       res.status(200).json("Parking Slot  has been deleted.");
-    } catch (err) {
+    } catch (error) {
         res.status(200).json("Parking Slot  has been deleted.");
     }
   };

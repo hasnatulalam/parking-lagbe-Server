@@ -26,7 +26,8 @@ router.get("/verify/:token", saveVerifiedEmail);
 
 router.post(
   "/change-password",
-  checkIsUserAuthenticated,
+ 
+ 
   changePassword
 );
 module.exports =router

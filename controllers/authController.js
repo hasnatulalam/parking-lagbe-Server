@@ -7,9 +7,9 @@ const EmailSender =require("../config/contactEmailTemplete.js")
 
 
   const  userRegistration = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email,role, password } = req.body;
     try {
-      if (name && email && password) {
+      if (name && email && password && role  ) {
         const isUser = await authModel.findOne({ email: email, });
         if (isUser) {
           return res.status(400).json({ message: "user Already Exists" });
@@ -26,13 +26,15 @@ const EmailSender =require("../config/contactEmailTemplete.js")
             expiresIn: "30m",
           });
 
-          const link = `http://localhost:9000/api/auth/verify/${token}`;
+          const link = `http://localhost:8000/api/auth/verify/${token}`;
 
           sendEmailtoUser(link, email);
           // save the user
           const newUser = authModel({
             name,
             email,
+            role,
+            
             password: hashedPassword,
             isVerified: false,
           });
@@ -81,6 +83,7 @@ const EmailSender =require("../config/contactEmailTemplete.js")
                 isUser,
                 name: isUser.name,
                 email:isUser.email,
+                role:isUser.role,
                 isAdmin:isUser.isAdmin
 
               });
@@ -205,8 +208,8 @@ const EmailSender =require("../config/contactEmailTemplete.js")
                                 </tr>
                                 <tr>
                                     <td style="padding:0 35px;">
-                                        <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">You have
-                                            requested to reset your password</h1>
+                                        <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">parking Lagbe
+                                            requested to verify Your Email</h1>
                                         <span
                                             style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
@@ -314,22 +317,22 @@ const EmailSender =require("../config/contactEmailTemplete.js")
 //
 
 
-  const  forgetPasswordEmail = async (req, res) => {
-    const { newPassword, confirmPassword } = req.body;
+ const  forgetPasswordEmail = async (req, res) => {
+    const { newpassword, confirmpassword } = req.body;
     const { id, token } = req.params;
 
     try {
-      if (newPassword && confirmPassword && id && token) {
-        if (newPassword === confirmPassword) {
+      if (newpassword && confirmpassword && id && token) {
+        if (newpassword === confirmpassword) {
           // token verifiying
           const isUser = await authModel.findById(id);
           const secretKey = isUser._id + "pleaseSubscribe";
-          const isValid = await jwt.verify(token, );
+          const isValid = await jwt.verify(token,secretKey);
           if (isValid) {
             // password hashing
 
             const genSalt = await bcryptjs.genSalt(10);
-            const hashedPass = await bcryptjs.hash(newPassword, genSalt);
+            const hashedPass = await bcryptjs.hash(newpassword, genSalt);
 
             const isSuccess = await authModel.findByIdAndUpdate(isUser._id, {
               $set: {
@@ -358,7 +361,7 @@ const EmailSender =require("../config/contactEmailTemplete.js")
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
-  };
+  }; 
 
   const  saveVerifiedEmail = async (req, res) => {
     const { token } = req.params;

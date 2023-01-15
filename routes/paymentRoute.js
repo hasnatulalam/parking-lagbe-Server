@@ -1,8 +1,10 @@
 const express = require("express")
+const parkingModel = require("../models/parkingModel")
 const router = express.Router()
 require("dotenv").config()
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const paymentModel = require('../models/paymentModel')
+
 
 
 router.get('/user', async (req, res) => {
@@ -50,5 +52,38 @@ router.post('/create-payment-intent', async (req, res) => {
 
     res.send({ clientSecret: paymentIntent.client_secret })
 })
-
+router.get("/income",  async (req, res) => {
+  const parkingId = req.params.parkingid;
+    const date = new Date();
+    const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
+    const previousMonth = new Date(new Date().setMonth(lastMonth.getMonth() - 1));
+  
+    try {
+      const income = await parkingModel.aggregate([
+        {
+          $match: {
+            createdAt: { $gte: previousMonth },
+            ...(parkingId && {
+              parkings: { $elemMatch: { parkingId} },
+            }),
+          },
+        },
+        {
+          $project: {
+            month: { $month: "$createdAt" },
+            sales: "$amount",
+          },
+        },
+        {
+          $group: {
+            _id: "$month",
+            total: { $sum: "$sales" },
+          },
+        },
+      ]);
+      res.status(200).json(income);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 module.exports = router
